@@ -1,0 +1,14 @@
+{
+  "name": "roozbarg-sitemap",
+  "version": "1.0.0",
+  "description": "for roozbarg.morsalat.ir needed to generate sitmap automatically from the api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Roozbarg"
+  ],
+  "author": "AliReza Rouhani",
+  "license": "ISC"
+}
