@@ -1,12 +1,10 @@
-const axios = require('axios');
-const fs = require('fs');
-const { js2xml } = require('xml-js');
-
-const allpodcasts = [];
+import { get } from 'axios';
+import { writeFile } from 'fs';
+import { js2xml } from 'xml-js';
 
 async function fetchPodcastsParents() {
   try {
-    const response = await axios.get('http://api.atf.morsalat.ir/v1/podcasts?search=parent:0');
+    const response = await get('http://api.atf.morsalat.ir/v1/podcasts?search=parent:0');
     return response.data.data;
   } catch (error) {
     console.error(error);
@@ -15,7 +13,7 @@ async function fetchPodcastsParents() {
 
 async function fetchPodcastsByParentId(parentId) {
   try {
-    const response = await axios.get(`http://api.atf.morsalat.ir/v1/podcasts?parent=${parentId}`);
+    const response = await get(`http://api.atf.morsalat.ir/v1/podcasts?parent=${parentId}`);
     return response.data.data;
   } catch (error) {
     console.error(error);
@@ -23,6 +21,7 @@ async function fetchPodcastsByParentId(parentId) {
 }
 
 async function getPodcasts() {
+  const allpodcasts = [];
   const parents = await fetchPodcastsParents();
   for (const parent of parents) {
     const podcasts = await fetchPodcastsByParentId(parent.id);
@@ -61,7 +60,7 @@ async function getPodcasts() {
 
   const xml = js2xml(xmlObj, { compact: true, spaces: 2 });
 
-  fs.writeFile('podcasts.xml', xml, err => {
+  writeFile('podcasts.xml', xml, err => {
     if (err) {
       console.error(err);
       return;
@@ -70,4 +69,6 @@ async function getPodcasts() {
   });
 }
 
-getPodcasts();
+export default {
+  getPodcasts
+};
