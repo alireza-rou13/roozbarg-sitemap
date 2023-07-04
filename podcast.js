@@ -1,6 +1,6 @@
-import { get } from 'axios';
-import { writeFile } from 'fs';
-import { js2xml } from 'xml-js';
+const { get } = require('axios');
+const { writeFile } = require('fs');
+const { js2xml } = require('xml-js');
 
 async function fetchPodcastsParents() {
   try {
@@ -69,6 +69,6 @@ async function getPodcasts() {
   });
 }
 
-export default {
+module.exports = {
   getPodcasts
 };
